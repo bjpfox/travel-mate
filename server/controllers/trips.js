@@ -32,16 +32,18 @@ const tripExistsAndUserIsOwner = asyncHandler(async (req, res, next) => {
 // Create a a new trip
 router.post('/', loginRequired, asyncHandler(async (req, res) => {
   //const text = req.body.text.trim()
-  const { trips } = req.body
-  console.log('trips:', trips)
+  const { trip } = req.body
+  console.log('trips:', trip)
+  trip.created_on = new Date()
+  trip.updated_on = new Date()
   // TODO check scenarios where optional fields are empty - does this still work or will it break
   const sql = `
     INSERT INTO trips (destination, time_of_departure, duration, activities, budget, additional_information, created_on, updated_on, user_id)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     RETURNING *
   `
-  const { rows } = await db.query(sql, [trips.destination, trips.time_of_departure, trips.duration, trips.activities,
-    trips.budget, trips.additional_information, trips.created_on, trips.updated_on, req.session.user.id])
+  const { rows } = await db.query(sql, [trip.destination, trip.time_of_departure, trip.duration, trip.activities,
+    trip.budget, trip.additional_information, trip.created_on, trip.updated_on, req.session.user.id])
   res.status(201).json(rows[0])
 }))
 
