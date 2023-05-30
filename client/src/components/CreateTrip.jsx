@@ -2,30 +2,29 @@ import { useState } from "react";
 import { Navigate, redirect } from "react-router-dom"
 
 const CreateTrip = () => {
-  const [fields, setFields] = useState({
-    text: "",
-    })
+  const [trip, setFields] = useState({ destination: "" })
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(fields);
-    const sendPostTweetRequest = async() => {
-            const res = await fetch(`/api/toots`, {
+    console.log(trip);
+    const sendPostTripRequest = async() => {
+            console.log(JSON.stringify({ trip }))
+            const res = await fetch(`/api/trips`, {
                 method: "POST",
                 headers: {
                   "Content-type": "application/json",
                 },
-                body: JSON.stringify(fields),
-            })
+                body: JSON.stringify({ trip }),
+                })
             console.log(res)
         }
-    sendPostTweetRequest()
-    return redirect("/view-my-tweets") // TODO - not working properly - debug this
+    sendPostTripRequest()
+    return redirect("/view-trips") // TODO - not working properly - debug this
         //return false
     }
 
   const handleChange = (event) => {
-    setFields({ ...fields, [event.target.name]: event.target.value });
+    setFields({ ...trip, [event.target.name]: event.target.value });
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -34,7 +33,7 @@ const CreateTrip = () => {
         type="text"
         name="destination"
         placeholder="Where? e.g. London"
-        value={fields.destination}
+        value={trip.destination}
         onChange={handleChange}
       />
       <br />
@@ -42,29 +41,32 @@ const CreateTrip = () => {
         type="text"
         name="time_of_departure"
         placeholder="When? e.g. Summer 2024"
-        value={fields.time_of_departure}
+        value={trip.time_of_departure}
         onChange={handleChange}
       />
 
+      <br />
       <input
         type="text"
         name="duration"
         placeholder="How Long? e.g. 3 weeks"
-        value={fields.duration}
+        value={trip.duration}
         onChange={handleChange}
       />
+      <br />
       <input
         type="text"
         name="activities"
         placeholder="Activities (optional) e.g. sightseeing, Wimbledon"
-        value={fields.activities}
+        value={trip.activities}
         onChange={handleChange}
       />
+      <br />
       <input
         type="text"
         name="budget"
         placeholder="Budget (optional) e.g. 100 pounds per day"
-        value={fields.budget}
+        value={trip.budget}
         onChange={handleChange}
       />
       <br />
@@ -72,7 +74,7 @@ const CreateTrip = () => {
         type="text"
         name="additional_information"
         placeholder="Additional information (optional) e.g. include at least one museum"
-        value={fields.additional_information}
+        value={trip.additional_information}
         onChange={handleChange}
       />
       <br />
