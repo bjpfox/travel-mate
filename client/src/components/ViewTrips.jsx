@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import {
     Accordion,
     AccordionItem,
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
+    Text,
   } from '@chakra-ui/react'
 
 
@@ -28,13 +29,23 @@ function ViewTrips() {
         // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {
           //console.log('trips:', trips) && 
         trips && trips.map((trip) => {
+              // const location = useLocation()
+              // const{ id } = location.state
                 return (
                     <AccordionItem key={trip.id}>
-                        {trip.destination}
+                        {trip.destination}, {trip.time_of_departure} for {trip.duration}
                         <AccordionIcon/>
                         <AccordionButton/>
                         <AccordionPanel>
-                        <br />Modified: {trip.updated_on}
+                        Activities: <Text as="i">{trip.activities}</Text>
+                        <br />Budget: <Text as="i">{trip.budget}</Text>
+                        <br />Additional Information: <Text as="i">{trip.additional_information}</Text>
+                        <br /><Text as="i">Last updated {trip.updated_on}</Text>
+                        <br /> 
+                        {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
+                        <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  | 
+                        <Link to="/delete-trip"> Delete Trip</Link> |
+                        <Link to="/view-itinerary"> View/Edit Itinerary</Link>  
                         </AccordionPanel>
                     </AccordionItem>
                 )
