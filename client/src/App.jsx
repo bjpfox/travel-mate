@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import PrivateRoutes from './components/PrivateRoutes';
 import ViewTrips from './components/ViewTrips';
 import CreateTrip from './components/CreateTrip';
+import EditTrip from './components/EditTrip'
 
 function App() {
   const { user } = useAuth();
@@ -36,6 +37,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes redirectTo="/login" />}>
           <Route path="/view-trips" element={<ViewTrips />} />
+          <Route path="/edit-trip/:id" element={<EditTrip />} />
           <Route path="/create-new-trip" element={<CreateTrip />} />
         </Route>
       <Route path='/' /> 

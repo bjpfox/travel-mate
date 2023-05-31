@@ -104,17 +104,21 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // Update form entered data for a particular trip id
 router.put('/:id', loginRequired, tripExistsAndUserIsOwner, asyncHandler(async (req, res) => {
-  const { trips } = req.body
-  //const { trips } = req.body.trips
-  console.log('trips:', trips)
-  console.log('curly trips:', { trips } )
-  console.log('trips id:', trips.id)
-  console.log('trips dest:', trips.destination)
-
+  const { trip } = req.body
+  const { id: user_id } = req.session.user
   const { id: trip_id } = req.params
+  
+  //const { trips } = req.body.trips
+  console.log('trips:', trip)
+  console.log('req body:', req.body)
+  console.log('curly trips:', { trip } )
+  console.log('trips id:', trip.id)
+  console.log('trips dest:', trip.destination)
+
+  // -- SET id = $1, 
   const query = `
     UPDATE trips
-    SET id = $1, 
+    SET id = $1,
     destination = $2, 
     time_of_departure = $3, 
     duration = $4,
@@ -127,9 +131,17 @@ router.put('/:id', loginRequired, tripExistsAndUserIsOwner, asyncHandler(async (
     WHERE trips.id = $11
     RETURNING *
   `
+  console.log('put query: ', query)
+  console.log('trip id', trip_id)
+  console.log('trips id', trip.id)
+  console.log('trips user id', trip.user_id)
   // TODO refactor this
-  const { rows } = await db.query(query, [trips.id, trips.destination, trips.time_of_departure, trips.duration, trips.activities,
-    trips.budget, trips.additional_information, trips.created_on, trips.updated_on, trips.user_id, trip_id])
+  // Fix var names, trips.id is user_id which is confusing
+  // Fix put request, currently have to include trip id and user id in body with request, but server knows this
+  // also a null will just overwrite db with null user_id which shouldnt happen (either add error check or dont use user is from users, use the value from sessions)
+  const { rows } = await db.query(query, [trip_id, trip.destination, trip.time_of_departure, trip.duration, trip.activities,
+    trip.budget, trip.additional_information, trip.created_on, trip.updated_on, user_id, trip_id])
+    //trips.budget, trips.additional_information, trips.created_on, trips.updated_on, trips.id, trip_id])
 
   res.json(rows[0])
 }))
