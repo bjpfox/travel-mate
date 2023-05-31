@@ -13,6 +13,8 @@ import PrivateRoutes from './components/PrivateRoutes';
 import ViewTrips from './components/ViewTrips';
 import CreateTrip from './components/CreateTrip';
 import EditTrip from './components/EditTrip'
+import ViewItinerary from "./components/ViewItinerary"
+import DeleteTrip from './components/DeleteTrip';
 
 function App() {
   const { user } = useAuth();
@@ -39,6 +41,8 @@ function App() {
           <Route path="/view-trips" element={<ViewTrips />} />
           <Route path="/edit-trip/:id" element={<EditTrip />} />
           <Route path="/create-new-trip" element={<CreateTrip />} />
+          <Route path="/delete-trip/:id" element={<DeleteTrip />} />
+          <Route path="/view-itinerary/:id" element={<ViewItinerary />} />
         </Route>
       <Route path='/' /> 
       <Route path="/*" element={<NotFound />} />

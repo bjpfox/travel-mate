@@ -9,52 +9,7 @@ import {
     Text,
   } from '@chakra-ui/react'
 
-
-// Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
-function ViewTrips() {
-    const [trips, setTrips] = useState(null)
-
-    useEffect(() => {
-        const fetchTrips = async() => {
-            const res = await fetch(`./api/trips`)
-            const data = await res.json()
-            console.log(data)
-            setTrips(data)
-        }
-        fetchTrips()
-    }, [])
-    return (<Accordion allowMultiple>My Saved Trips
-        {
-        //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
-        // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {
-          //console.log('trips:', trips) && 
-        trips && trips.map((trip) => {
-              // const location = useLocation()
-              // const{ id } = location.state
-                return (
-                    <AccordionItem key={trip.id}>
-                        {trip.destination}, {trip.time_of_departure} for {trip.duration}
-                        <AccordionIcon/>
-                        <AccordionButton/>
-                        <AccordionPanel>
-                        Activities: <Text as="i">{trip.activities}</Text>
-                        <br />Budget: <Text as="i">{trip.budget}</Text>
-                        <br />Additional Information: <Text as="i">{trip.additional_information}</Text>
-                        <br /><Text as="i">Last updated {trip.updated_on}</Text>
-                        <br /> 
-                        {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
-                        <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  | 
-                        <Link to={`/delete-trip/${trip.id}`}> Delete Trip</Link> |
-                        <Link to={`/view-itinerary/${trip.id}`}> View/Edit Itinerary</Link>  
-                        </AccordionPanel>
-                    </AccordionItem>
-                )
-              })
-        }
-       </Accordion>)
-}
-
-const itinerary = {
+  const itineraryMockData = {
     "Day 1": [
       {
         "Location": "British Museum",
@@ -147,6 +102,52 @@ const itinerary = {
     ]
 }
 
+// Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
+function ViewItinerary () {
+    const [itinerary, setItinerary] = useState(null)
+
+    const { id } = useParams()
+
+    useEffect(() => {
+        const fetchItinerary = async() => {
+            // TODO - connect up to db and fetch based on trip id
+            // const res = await fetch(`./api/itineraries`)
+            // const data = await res.json()
+            // console.log(data)
+            // setTrips(data)
+            setItinerary(itineraryMockData)
+        }
+        fetchItinerary()
+    }, [])
+    return (<Accordion allowMultiple>My Saved Trips
+        {
+        //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
+        // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {
+          //console.log('trips:', trips) && 
+        itinerary && itinerary["Day 1"].map((activity) => {
+              // const location = useLocation()
+              // const{ id } = location.state
+                return (
+                    <AccordionItem key={activity["Location"]}>
+                        {activity["Location"]}
+                        <AccordionIcon/>
+                        <AccordionButton/>
+                        <AccordionPanel>
+                        Website: <Text as="i">{activity["Website"]}</Text>
+                        <br />Category: <Text as="i">{activity["Category"]}</Text>
+                        <br /> <Link to={`/edit-trip/TODO}`}> Edit Activity</Link>  | 
+                        <Link to="/delete-trip/TODO"> Delete Activity</Link> |
+                        <Link to="/view-itinerary/TODO"> Add more activities</Link>  
+                        </AccordionPanel>
+                    </AccordionItem>
+                )
+              })
+        }
+       </Accordion>)
+}
+
+
+
 const packingList = {
         "Clothing": {
           "Thermal Tops": 6,
@@ -215,5 +216,5 @@ const packingList = {
   
 
 
-export default ViewTrips
+export default ViewItinerary 
 

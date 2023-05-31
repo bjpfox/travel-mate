@@ -19,7 +19,8 @@ const CreateTrip = () => {
             console.log(res)
         }
     sendPostTripRequest()
-    return redirect("/view-trips") // TODO - not working properly - debug this
+    return <Navigate to="/view-trips"/> //replace={true} />
+    //return redirect("/view-trips") // TODO - not working properly - debug this
         //return false
     }
 
