@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Navigate, Link, redirect, useParams } from "react-router-dom"
 import { useEffect } from "react";
+import { Button, Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 
-const DeleteTrip = () => {
 
-  const { id } = useParams()
+
+const DeleteTrip = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // const { id } = useParams()
+  const id = props.tripId
   
   const [trip, setFields] = useState( {} ) // Can just initiatilise to empty object {} ?
 
@@ -31,20 +36,37 @@ const DeleteTrip = () => {
             console.log('res is: ', res)
         }
     sendDeleteTripRequest()
-    return <Navigate to="/view-trips"/> //replace={true} />
+    onClose()
+    // return <Navigate to="/view-trips"/> //replace={true} />
     //redirect("/view-trips") 
         //return false
     }
 
   return (
     <>
-      <h1>Delete your trip</h1>
-      <h3>Are you sure you want to delete this trip?</h3>
-      <br />Destination: {trip.destination}
-      <br />Departure: {trip.time_of_departure}
-      <br />Duration: {trip.duration}
-      <br /><button onClick={handleDelete}>Yes - Delete</button> | <Link to={`/view-trips/`}>No - Cancel</Link>
-    </>
+      <Button onClick={onOpen}>Delete trip</Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Delete Trip</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+            <h3>Are you sure you want to delete this trip?</h3>
+        <br />Destination: {trip.destination}
+        <br />Departure: {trip.time_of_departure}
+        <br />Duration: {trip.duration}
+            </ModalBody>
+            <ModalFooter>              
+              <Button colorScheme='red' mr={3} onClick={handleDelete}>
+               Yes - Delete
+              </Button>
+              <Button colorScheme='blue' mr={3} onClick={onClose}>
+               No - Cancel 
+              </Button>
+              </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
   );
 };
 

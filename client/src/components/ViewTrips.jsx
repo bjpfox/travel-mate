@@ -8,7 +8,7 @@ import {
     AccordionIcon,
     Text,
   } from '@chakra-ui/react'
-
+import DeleteTrip from "./DeleteTrip"
 
 // Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
 function ViewTrips() {
@@ -44,7 +44,8 @@ function ViewTrips() {
                         <br /> 
                         {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
                         <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  | 
-                        <Link to={`/delete-trip/${trip.id}`}> Delete Trip</Link> |
+                        <DeleteTrip tripId={`${trip.id}`}></DeleteTrip>
+                        {/* <Link to={`/delete-trip/${trip.id}`}> Delete Trip</Link> | */}
                         <Link to={`/view-itinerary/${trip.id}`}> View/Edit Itinerary</Link>  
                         </AccordionPanel>
                     </AccordionItem>
