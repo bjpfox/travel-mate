@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Navigate, redirect } from "react-router-dom"
+import { Navigate, redirect, useNavigate } from "react-router-dom"
 
 const CreateTrip = () => {
   const [trip, setFields] = useState({ destination: "" })
+
+  const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +21,9 @@ const CreateTrip = () => {
             console.log(res)
         }
     sendPostTripRequest()
-    return <Navigate to="/view-trips"/> //replace={true} />
+
+    return navigate("/view-trips") 
+    // return <Navigate to="/view-trips"/> //replace={true} />
     //return redirect("/view-trips") // TODO - not working properly - debug this
         //return false
     }

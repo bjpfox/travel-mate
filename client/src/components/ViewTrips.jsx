@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useParams, Navigate, useNavigate } from "react-router-dom"
 import {
     Accordion,
     AccordionItem,
@@ -7,12 +7,15 @@ import {
     AccordionPanel,
     AccordionIcon,
     Text,
+    Button,
   } from '@chakra-ui/react'
 import DeleteTrip from "./DeleteTrip"
 
 // Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
 function ViewTrips() {
     const [trips, setTrips] = useState(null)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchTrips = async() => {
@@ -43,10 +46,13 @@ function ViewTrips() {
                         <br /><Text as="i">Last updated {trip.updated_on}</Text>
                         <br /> 
                         {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
-                        <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  | 
+                        {/* </AccordionPanel> */}
+                        <Button onClick={() => navigate(`/edit-trip/${trip.id}`)}>Edit Trip</Button>
+                        {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
                         <DeleteTrip tripId={`${trip.id}`}></DeleteTrip>
                         {/* <Link to={`/delete-trip/${trip.id}`}> Delete Trip</Link> | */}
-                        <Link to={`/view-itinerary/${trip.id}`}> View/Edit Itinerary</Link>  
+                        <Button onClick={() => navigate(`/view-itinerary/${trip.id}`)}>View/Edit Itinerary</Button>
+                        {/* <Link to={`/view-itinerary/${trip.id}`}> View/Edit Itinerary</Link>   */}
                         </AccordionPanel>
                     </AccordionItem>
                 )
