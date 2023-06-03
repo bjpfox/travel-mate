@@ -49,7 +49,7 @@ function ViewTrips() {
                         {/* </AccordionPanel> */}
                         <Button onClick={() => navigate(`/edit-trip/${trip.id}`)}>Edit Trip</Button>
                         {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
-                        <DeleteTrip tripId={`${trip.id}`}></DeleteTrip>
+                        <DeleteTrip trips={trips} destination={trip.destination} departure={trip.time_of_departure} duration={trip.duration} setTrips={setTrips} tripId={`${trip.id}`}></DeleteTrip>
                         {/* <Link to={`/delete-trip/${trip.id}`}> Delete Trip</Link> | */}
                         <Button onClick={() => navigate(`/view-itinerary/${trip.id}`)}>View/Edit Itinerary</Button>
                         {/* <Link to={`/view-itinerary/${trip.id}`}> View/Edit Itinerary</Link>   */}

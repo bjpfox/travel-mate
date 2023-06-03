@@ -10,6 +10,7 @@ const DeleteTrip = (props) => {
 
   // const { id } = useParams()
   const id = props.tripId
+  const { duration, destination, departure, trips, setTrips } = props
   
   const [trip, setFields] = useState( {} ) // Can just initiatilise to empty object {} ?
 
@@ -24,6 +25,10 @@ const DeleteTrip = (props) => {
         fetchTrips()
     }, [])
 
+  function removeTrip() {
+    const updatedTripsList = trips.filter((trip) => trip.id !== parseInt(id))
+    setTrips(updatedTripsList)
+  }
 
   const handleDelete = (event) => {
     event.preventDefault();
@@ -36,6 +41,7 @@ const DeleteTrip = (props) => {
             console.log('res is: ', res)
         }
     sendDeleteTripRequest()
+    removeTrip()
     onClose()
     // return <Navigate to="/view-trips"/> //replace={true} />
     //redirect("/view-trips") 
@@ -52,9 +58,9 @@ const DeleteTrip = (props) => {
             <ModalCloseButton />
             <ModalBody>
             <h3>Are you sure you want to delete this trip?</h3>
-        <br />Destination: {trip.destination}
-        <br />Departure: {trip.time_of_departure}
-        <br />Duration: {trip.duration}
+        <br />Destination: {destination}
+        <br />Departure: {departure}
+        <br />Duration: {duration}
             </ModalBody>
             <ModalFooter>              
               <Button colorScheme='red' mr={3} onClick={handleDelete}>
