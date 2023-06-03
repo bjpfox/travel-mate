@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Navigate, redirect, useParams } from "react-router-dom"
+import { Navigate, redirect, useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react";
 
 const EditTrip = () => {
 
   const { id } = useParams()
+
+  const navigate = useNavigate()
   
   const [trip, setFields] = useState( {} ) // Can just initiatilise to empty object {} ?
 
@@ -34,7 +36,7 @@ const EditTrip = () => {
             console.log('res is: ', res)
         }
     sendPutTripRequest()
-    return redirect("/view-trips") // TODO - not working properly - debug this
+    return navigate("/view-trips") // TODO - not working properly - debug this
         //return false
     }
 
