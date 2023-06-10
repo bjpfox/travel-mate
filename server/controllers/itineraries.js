@@ -1,7 +1,11 @@
 // *-*-*-*-*-*-*-*-*-*-
 // TODO
 // *-*-*-*-*-*-*-*-*-*-
-
+// Routes:
+// Get itinerary by trip id
+// Post itinerary
+// Update itinerary
+// Delete itinerary
 
 const express = require('express')
 
@@ -11,66 +15,56 @@ const asyncHandler = require('../middleware/async-handler')
 
 const router = express.Router()
 
-router.post('/:followeeID', loginRequired, asyncHandler(async (req, res) => {
-  const { followeeID } = req.params
-  const { id: followerID } = req.session.user
-
-  if (followeeID === followerID.toString()) {
-    const err = new Error('Forbidden')
-    err.status = 403
-    throw err
-  }
+// Create a new trip itinerary
+router.post('/:tripID', loginRequired, asyncHandler(async (req, res) => {
+  const { tripID } = req.params
+  const { json_result } = req.body
+  const { id: userID } = req.session.user
 
   try {
     const query = `
-      INSERT INTO follows (follower_id, followee_id)
+      INSERT INTO itineraries (json_result, trip_id)
       VALUES ($1, $2)
     `
-    await db.query(query, [followerID, followeeID])
+    await db.query(query, [tripID, json_result])
     res.json({ message: 'User followed successfully' })
-  } catch (err) {
-    if (err.code === '23505' && err.constraint === 'follows_pkey') {
-      err = new Error('Already following user')
-      err.status = 400
-    }
-    throw err
-  }
-}))
 
-router.get('/followers', loginRequired, asyncHandler(async (req, res) => {
-  const { id: followeeID } = req.session.user
+// Get an itinerary for a trip id
+router.get('/:tripID', loginRequired, asyncHandler(async (req, res) => {
+  const { tripID } = req.params
   const query = `
-    SELECT users.id, users.username
-    FROM follows
-    JOIN users ON users.id = follows.follower_id
-    WHERE follows.followee_id = $1;
+    SELECT *
+    FROM itineraries
+    WHERE trip_id = $1;
   `
-  const { rows } = await db.query(query, [followeeID])
+  const { rows } = await db.query(query, [tripID])
   res.json(rows)
 }))
 
-router.get('/following', loginRequired, asyncHandler(async (req, res) => {
-  const { id: followerID } = req.session.user
+// Delete a trip itinerary
+router.delete('/:tripID', loginRequired, asyncHandler(async (req, res, next) => {
+  const { tripID } = req.params
   const query = `
-    SELECT users.id, users.username
-    FROM follows
-    JOIN users ON users.id = follows.followee_id
-    WHERE follows.follower_id = $1;
+    DELETE FROM itineraries 
+    WHERE trip_id = $1
   `
-  const { rows } = await db.query(query, [followerID])
-  res.json(rows)
-}))
-
-router.delete('/:followeeID', loginRequired, asyncHandler(async (req, res, next) => {
-  const { followeeID } = req.params
-  const { id: followerID } = req.session.user
-  const query = `
-    DELETE FROM follows
-    WHERE follower_id = $1
-    AND followee_id = $2
-  `
-  await db.query(query, [followerID, followeeID])
+  await db.query(query, [tripID])
   res.status(204).send()
 }))
+
+// Edit a trip itinerary
+router.put('/:tripID', loginRequired, asyncHandler(async (req, res) => {
+  const { tripID } = req.params
+  const { json_result } = req.body
+  const { id: userID } = req.session.user
+
+  try {
+    const query = `
+      UPDATE itineraries 
+      SET (json_result = $1)
+      WHERE (trip_id = $2)
+    `
+    await db.query(query, [json_result, tripID])
+    res.json({ message: 'User followed successfully' })
 
 module.exports = router
