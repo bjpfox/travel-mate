@@ -21,11 +21,14 @@ router.post('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { json_result } = req.body
   const { id: userID } = req.session.user
 
+  console.log('jsonis',json_result)
+  console.log('tripID',tripID)
+
     const query = `
       INSERT INTO itineraries (json_result, trip_id)
       VALUES ($1, $2)
     `
-    await db.query(query, [tripID, json_result])
+    await db.query(query, [json_result, tripID])
     res.json({ message: 'New itinerary created' })
 }))
 
@@ -57,11 +60,15 @@ router.put('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { tripID } = req.params
   const { json_result } = req.body
   const { id: userID } = req.session.user
+  console.log('jsonis',json_result)
+  console.log('tripID',tripID)
 
     const query = `
       UPDATE itineraries 
-      SET (json_result = $1)
-      WHERE (trip_id = $2)
+      SET json_result = $1,
+      trip_id = $2
+      WHERE trip_id = $2
+      RETURNING *
     `
     await db.query(query, [json_result, tripID])
     res.json({ message: 'Trip editted successfully' })
