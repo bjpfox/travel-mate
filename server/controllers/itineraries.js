@@ -21,13 +21,13 @@ router.post('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { json_result } = req.body
   const { id: userID } = req.session.user
 
-  try {
     const query = `
       INSERT INTO itineraries (json_result, trip_id)
       VALUES ($1, $2)
     `
     await db.query(query, [tripID, json_result])
-    res.json({ message: 'User followed successfully' })
+    res.json({ message: 'New itinerary created' })
+}))
 
 // Get an itinerary for a trip id
 router.get('/:tripID', loginRequired, asyncHandler(async (req, res) => {
@@ -58,13 +58,13 @@ router.put('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { json_result } = req.body
   const { id: userID } = req.session.user
 
-  try {
     const query = `
       UPDATE itineraries 
       SET (json_result = $1)
       WHERE (trip_id = $2)
     `
     await db.query(query, [json_result, tripID])
-    res.json({ message: 'User followed successfully' })
+    res.json({ message: 'Trip editted successfully' })
+}))
 
 module.exports = router
