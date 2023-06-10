@@ -9,6 +9,13 @@ import {
     Text,
   } from '@chakra-ui/react'
 
+  import {
+    Editable,
+    EditableInput,
+    EditableTextarea,
+    EditablePreview,
+  } from '@chakra-ui/react'
+
   const itineraryMockData = {
     "Day 1": [
       {
@@ -129,7 +136,10 @@ function ViewItinerary () {
               // const{ id } = location.state
                 return (
                     <AccordionItem key={activity["Location"]}>
-                        {activity["Location"]}
+                        <Editable defaultValue={activity["Location"]}>
+                        <EditablePreview />
+                        <EditableInput />
+                        </Editable>
                         <AccordionIcon/>
                         <AccordionButton/>
                         <AccordionPanel>
