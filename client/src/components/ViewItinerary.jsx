@@ -85,6 +85,30 @@ function ViewItinerary () {
       setItinerary([...itinerary, newActivity])
     }
 
+    function saveChanges(event) {
+      //event.preventDefault();
+      console.log('saving changes')
+      const sendPutItinRequest = async() => {
+              // const json_result = {"json_result": itinerary }
+              const requestBody = {
+                "json_result": JSON.stringify(itinerary)
+              };
+              // console.log('itin will be: ', json_result)
+              // console.log('body will be: ', JSON.stringify(json_result))
+              const res = await fetch(`/api/itineraries/${id}`, {
+                  method: "PUT",
+                  headers: {
+                    "Content-type": "application/json",
+                  },
+                  body: JSON.stringify(requestBody),
+                  })
+              console.log('res is: ', res)
+          }
+      sendPutItinRequest()
+      //return navigate("/view-itine") 
+          //return false
+      }
+
 
     useEffect(() => {
       const fetchTrips = async() => {
@@ -242,7 +266,7 @@ function ViewItinerary () {
         }
         {/* </Accordion> */}
         <Button onClick={addNewActivity}>Add new activity</Button>
-        <Button>Save changes</Button>
+        <Button onClick={saveChanges}>Save changes...</Button>
       </>
        )
 }
