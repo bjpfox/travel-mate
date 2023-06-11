@@ -27,7 +27,13 @@ async function fetchItinFromLLM(itinQuery) {
     My budget is: ${itinQuery.budget}
     Additional information: ${itinQuery.additional_information}
     If you don't know the above information for an activity, don't include the activity.
-    For each activity, include a title and description, latitude, longitude, website, and category of activity (e.g. sightseeing, museuems, cafes). 
+    For each activity, include:
+    Title - string
+    Description - string
+    Latitude - number (measured in degrees from N)
+    Longitude  - number (measured in degrees from W) 
+    Website - string
+    Category - string (category of activity e.g. sightseeing, museuems, cafes). 
     Provide your response as JSON object, which meets the schema provided below: ${itinerarySchema}
     All property names must begin with a capital letter.
     Do not provide any additional levels, apart from what is stated in the schema.
