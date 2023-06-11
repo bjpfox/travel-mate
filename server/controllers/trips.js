@@ -6,6 +6,9 @@ const asyncHandler = require('../middleware/async-handler')
 
 const router = express.Router()
 
+const { fetchItinFromLLM } = require('./fetchItinerary') 
+
+
 // Only allow the user who entered the trip to edit / delete the trip
 const tripExistsAndUserIsOwner = asyncHandler(async (req, res, next) => {
   const { id: trip_id } = req.params
@@ -44,6 +47,12 @@ router.post('/', loginRequired, asyncHandler(async (req, res) => {
   `
   const { rows } = await db.query(sql, [trip.destination, trip.time_of_departure, trip.duration, trip.activities,
     trip.budget, trip.additional_information, trip.created_on, trip.updated_on, req.session.user.id])
+
+    const itinResponse = fetchItinFromLLM(trip)
+    console.log('res backfromLLM function', itinResponse)
+
+
+
   res.status(201).json(rows[0])
 }))
 
