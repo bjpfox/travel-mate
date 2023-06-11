@@ -14,6 +14,9 @@ import {
     EditableInput,
     EditableTextarea,
     EditablePreview,
+    Card,
+    CardBody,
+    Heading
   } from '@chakra-ui/react'
 
   const itineraryMockData = [
@@ -54,8 +57,19 @@ import {
 // Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
 function ViewItinerary () {
     const [itinerary, setItinerary] = useState(null)
+    const [trip, setTrips] = useState(null)
 
     const { id } = useParams()
+
+    useEffect(() => {
+      const fetchTrips = async() => {
+          const res = await fetch(`../api/trips?id=${id}`)
+          const data = await res.json()
+          console.log('tripdata:',data)
+          setTrips(data)
+      }
+      fetchTrips()
+  }, [])
 
     useEffect(() => {
         const fetchItinerary = async() => {
@@ -76,7 +90,10 @@ function ViewItinerary () {
         }
         fetchItinerary()
     }, [])
-    return (<Accordion allowMultiple>My Saved Trips
+    return (
+    // <Accordion allowMultiple>
+    <>
+      <Heading>{trip.destination}</Heading>
         {
         //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
         // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {
@@ -85,9 +102,10 @@ function ViewItinerary () {
               // const location = useLocation()
               // const{ id } = location.state
                 return (
-                  <>
+                  <Card>
+                    <CardBody>
                     {/* <AccordionItem key={activity["Location"]}> */}
-                        <Editable defaultValue={activity["Title"]}>
+                        <Editable fontSize='xl' defaultValue={activity["Title"]}>
                         <EditablePreview />
                         <EditableInput />
                         </Editable>
@@ -98,18 +116,27 @@ function ViewItinerary () {
                         {/* <AccordionIcon/>
                         <AccordionButton/>
                         <AccordionPanel> */}
-                        Website: <Text as="i">{activity["Website"]}</Text>
-                        <br />Category: <Text as="i">{activity["Category"]}</Text>
-                        <br /> <Link to={`/edit-trip/TODO}`}> Edit Activity</Link>  | 
+                        <Editable defaultValue={activity["Website"]}>
+                        <EditablePreview />
+                        <EditableInput />
+                        </Editable>
+                        <Editable defaultValue={activity["Category"]}>
+                        <EditablePreview />
+                        <EditableInput />
+                        </Editable> 
+                        
                         <Link to="/delete-trip/TODO"> Delete Activity</Link> |
-                        <Link to="/view-itinerary/TODO"> Add more activities</Link>  
+                        <Link to="/view-itinerary/TODO"> Add new Activity</Link>  
                         {/* </AccordionPanel>
                     </AccordionItem> */}
-                    </>
+                    </CardBody>
+                    </Card>
                 )
               })
         }
-       </Accordion>)
+      {/* </Accordion> */}
+      </>
+       )
 }
 
 
