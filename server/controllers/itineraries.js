@@ -16,6 +16,7 @@ const asyncHandler = require('../middleware/async-handler')
 const router = express.Router()
 
 // Create a new trip itinerary
+// Typically this will be used to send the itin data we get from the openAI API, on creation of new trip
 router.post('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { tripID } = req.params
   const { json_result } = req.body
