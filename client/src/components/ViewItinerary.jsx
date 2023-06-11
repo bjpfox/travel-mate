@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
 
-import ItineraryMap from "./Map"
+import ItineraryMap from "./ItineraryMap"
 
 import {
     Accordion,
@@ -98,6 +98,7 @@ function ViewItinerary () {
     return (
     // <Accordion allowMultiple>
     <>
+      <ItineraryMap></ItineraryMap>Test.
       <Heading>{trip && trip.destination}</Heading>
       {/* <ItineraryMap></ItineraryMap> */}
         {
