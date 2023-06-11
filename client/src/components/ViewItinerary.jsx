@@ -9,18 +9,24 @@ import {
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
-    Text,
+    Text
   } from '@chakra-ui/react'
 
   import {
+    Button,
     Editable,
     EditableInput,
     EditableTextarea,
     EditablePreview,
     Card,
     CardBody,
-    Heading
+    Heading,
+    FormLabel,
+    Grid,
+    GridItem
   } from '@chakra-ui/react'
+
+// import { eventNames } from "process"
 
   const itineraryMockData = [
       {
@@ -59,10 +65,26 @@ import {
 
 // Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
 function ViewItinerary () {
-    const [itinerary, setItinerary] = useState(null)
+    const [itinerary, setItinerary] = useState([])
     const [trip, setTrips] = useState(null)
 
     const { id } = useParams()
+
+    function addNewActivity() {
+      console.log('clickedbtn')
+      const newActivity = {
+        "Title": "",
+        "Description": "",
+        "Latitude": 0,
+        "Longitude": 0,
+        "Website": "",
+        "Category": ""
+      }
+      console.log('add',newActivity)
+      console.log('to',itinerary)
+      setItinerary([...itinerary, newActivity])
+    }
+
 
     useEffect(() => {
       const fetchTrips = async() => {
@@ -88,7 +110,12 @@ function ViewItinerary () {
             console.log('json is: ', JSON.parse(data[0]['json_result']))
             console.log('json type is: ', typeof data[0]['json_result'])
             console.log('json parsetypeis: ', typeof JSON.parse(data[0]['json_result']))
-            const itineraryData = JSON.parse(data[0]['json_result'] )
+            let itineraryData = JSON.parse(data[0]['json_result'])
+            //itineraryData.forEach((activity) => activity.key = activity["Description"])
+            itineraryData = itineraryData.map((activity) => {
+              // console.log(activity["Description"])
+              return {...activity, 'key': activity["Description"]}
+            })
             // setTrips(data)
             setItinerary(itineraryData)
             //setItinerary(itineraryMockData)
@@ -98,42 +125,114 @@ function ViewItinerary () {
     return (
     // <Accordion allowMultiple>
     <>
-      <ItineraryMap></ItineraryMap>Test.
+      <ItineraryMap></ItineraryMap>
       <Heading>{trip && trip.destination}</Heading>
       {/* <ItineraryMap></ItineraryMap> */}
         {
         //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
         // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {
           //console.log('trips:', trips) && 
-        itinerary && itinerary.map((activity) => {
+          // Ideally the code below could be made more DRY, unfort chakra ui doesnt pass event target only value
+        itinerary && itinerary.map((activity, index) => {
               // const location = useLocation()
               // const{ id } = location.state
                 return (
-                  <Card>
+                  // Ideally we would have unique keys, this will still work but react will remount if title is changed
+                  <Card key={activity["key"]}>
                     <CardBody>
                     {/* <AccordionItem key={activity["Location"]}> */}
-                        <Editable fontSize='xl' defaultValue={activity["Title"]}>
+                      <Grid h='200px' templateRows='repeat(6, 1fr)' templateColumns='repeat(4, 1fr)' gap={1} >
+
+                      <GridItem rowSpan={1} colSpan={4} bg='tomato'>
+                      <Editable onChange={(newValue) => {
+                        const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Title': newValue} : act)
+                        setItinerary(newItinerary)
+                        console.log(itinerary)
+                      }} fontSize='xl' placeholder="Enter a title e.g. Hyde Park" defaultValue={activity["Title"]}>
                         <EditablePreview />
                         <EditableInput />
                         </Editable>
-                        <Editable defaultValue={activity["Description"]}>
+                      </GridItem>
+
+                      <GridItem rowSpan={1} colSpan={4} bg='papayawhip'>
+                        <Editable onChange={(newValue) => {
+                        const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Description': newValue} : act)
+                        setItinerary(newItinerary)
+                        console.log(itinerary)
+                        }} placeholder="Enter a description, e.g. Take a stroll around Hyde Park" defaultValue={activity["Description"]}>
                         <EditablePreview />
                         <EditableInput />
                         </Editable>
+                      </GridItem>
+                   
+                      <GridItem rowSpan={1} colSpan={4}  bg='papayawhip'>
+                        <Editable onChange={(newValue) => {
+                        const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Website': newValue} : act)
+                        setItinerary(newItinerary)
+                        console.log(itinerary)
+                        }} placeholder="Enter a website URL e.g. https://www.royalparks.org.uk/parks/hyde-park" defaultValue={activity["Website"]}>
+                        <EditablePreview />
+                        <EditableInput />
+                        </Editable>
+                      </GridItem>
+                   
                         {/* <AccordionIcon/>
                         <AccordionButton/>
                         <AccordionPanel> */}
-                        <Editable defaultValue={activity["Website"]}>
-                        <EditablePreview />
-                        <EditableInput />
-                        </Editable>
-                        <Editable defaultValue={activity["Category"]}>
+                   
+                      <GridItem rowSpan={1} colSpan={4} bg='papayawhip'>
+                        <Editable onChange={(newValue) => {
+                        const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Category': newValue} : act)
+                        setItinerary(newItinerary)
+                        console.log(itinerary)
+                        }} placeholder="Enter a category e.g. Parks" defaultValue={activity["Category"]}>
                         <EditablePreview />
                         <EditableInput />
                         </Editable> 
-                        
-                        <Link to="/delete-trip/TODO"> Delete Activity</Link> |
-                        <Link to="/view-itinerary/TODO"> Add new Activity</Link>  
+                      </GridItem> 
+
+                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
+                        <FormLabel>Longitude:</FormLabel>
+                      </GridItem>
+
+                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
+                        <Editable  onChange={(newValue) => {
+                        const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Longitude': newValue} : act)
+                        setItinerary(newItinerary)
+                        console.log(itinerary)
+                        }} placeholder="Enter Longitude (measured in degrees from North) e.g. 51.25" defaultValue={activity["Longitude"]}>
+                        <EditablePreview />
+                        <EditableInput />
+                        </Editable> 
+                      </GridItem>
+
+                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
+                        <FormLabel>Latitude:</FormLabel>
+                      </GridItem>
+
+                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
+                        <Editable onChange={(newValue) => {
+                        const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Latitude': newValue} : act)
+                        setItinerary(newItinerary)
+                        console.log(itinerary)
+                        }} placeholder="Enter Latitude (measured in degrees from West) e.g. -2.15" defaultValue={activity["Latitude"]}>
+                        <EditablePreview />
+                        <EditableInput />
+                        </Editable>
+                      </GridItem>
+
+                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
+                        <Button id={index} onClick={(event) => {
+                        //const newItinerary = itinerary.filter((act, i) => i !== index )
+                        const newItinerary = itinerary.filter((act, i) => i !== parseInt(event.currentTarget.id))
+                        console.log('index:', index)
+                        setItinerary(newItinerary)
+                        console.log('itin is: ',itinerary)
+                        }}>Delete activity</Button>
+                      </GridItem>
+                      </Grid>
+                        {/* <Link to="/delete-trip/TODO"> Delete Activity</Link> |
+                        <Link to="/view-itinerary/TODO"> Add new Activity</Link>   */}
                         {/* </AccordionPanel>
                     </AccordionItem> */}
                     </CardBody>
@@ -141,7 +240,9 @@ function ViewItinerary () {
                 )
               })
         }
-      {/* </Accordion> */}
+        {/* </Accordion> */}
+        <Button onClick={addNewActivity}>Add new activity</Button>
+        <Button>Save changes</Button>
       </>
        )
 }
