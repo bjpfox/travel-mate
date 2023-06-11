@@ -69,7 +69,7 @@ async function fetchItinFromLLM(itinQuery) {
 
     if (validateJson(itinerary, itinerarySchema)) {
         console.log('JSON schema passed')
-        return itinResponse
+        return itinerary
     }
     console.log('JSON schema not satified')
     return false
