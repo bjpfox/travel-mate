@@ -29,5 +29,6 @@ CREATE TABLE trips (
 CREATE TABLE itineraries (
   id SERIAL PRIMARY KEY,
   json_result TEXT NOT NULL,
-  trip_id INT REFERENCES trips (id) ON DELETE CASCADE
+  trip_id INT REFERENCES trips (id) ON DELETE CASCADE,
+  UNIQUE (trip_id)
 );
