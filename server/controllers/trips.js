@@ -35,7 +35,10 @@ const tripExistsAndUserIsOwner = asyncHandler(async (req, res, next) => {
 // Create a new trip
 router.post('/', loginRequired, asyncHandler(async (req, res) => {
     //const text = req.body.text.trim()
-    const { trip } = req.body
+    const { trip: tripString } = req.body
+    console.log('typeof', typeof tripString)
+    //const trip = JSON.parse(tripString)
+    const trip = tripString
     console.log('trips:', trip)
     trip.created_on = new Date()
     trip.updated_on = new Date()
@@ -163,6 +166,10 @@ router.put('/:id', loginRequired, tripExistsAndUserIsOwner, asyncHandler(async (
   const { rows } = await db.query(query, [trip_id, trip.destination, trip.time_of_departure, trip.duration, trip.activities,
     trip.budget, trip.additional_information, trip.created_on, trip.updated_on, user_id, trip_id])
     //trips.budget, trips.additional_information, trips.created_on, trips.updated_on, trips.id, trip_id])
+
+
+
+
 
   res.json(rows[0])
 }))
