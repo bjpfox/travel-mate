@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
+
+import ItineraryMap from "./Map"
+
 import {
     Accordion,
     AccordionItem,
@@ -63,7 +66,9 @@ function ViewItinerary () {
 
     useEffect(() => {
       const fetchTrips = async() => {
+        console.log('fetchingtrips')
           const res = await fetch(`../api/trips?id=${id}`)
+          console.log('trips res',res)
           const data = await res.json()
           console.log('tripdata:',data)
           setTrips(data)
@@ -75,8 +80,8 @@ function ViewItinerary () {
         const fetchItinerary = async() => {
             // TODO - connect up to db and fetch based on trip id
             const res = await fetch(`../api/itineraries/${id}`)
-            console.log('url is: ', `../api/itineraries/${id}`)
-            console.log('res is: ', res)
+            console.log('url itenfetchis: ', `../api/itineraries/${id}`)
+            console.log('res itenis: ', res)
             const data = await res.json()
             console.log('data is: ', data)
             console.log('json is: ', data[0]['json_result'])
@@ -93,7 +98,8 @@ function ViewItinerary () {
     return (
     // <Accordion allowMultiple>
     <>
-      <Heading>{trip.destination}</Heading>
+      <Heading>{trip && trip.destination}</Heading>
+      {/* <ItineraryMap></ItineraryMap> */}
         {
         //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
         // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {

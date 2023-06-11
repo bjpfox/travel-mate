@@ -10,12 +10,13 @@ const CreateTrip = () => {
     event.preventDefault();
     console.log(trip);
     const sendPostTripRequest = async() => {
-            console.log(JSON.stringify({ trip }))
+            console.log('trip:',trip)
             const res = await fetch(`/api/trips`, {
                 method: "POST",
                 headers: {
                   "Content-type": "application/json",
                 },
+                // body: { trip },
                 body: JSON.stringify({ trip }),
                 })
             console.log(res)
