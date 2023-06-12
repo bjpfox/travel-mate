@@ -1,31 +1,69 @@
 import { useAuth } from "../contexts/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
 
 const SignupForm = () => {
   const { login, user } = useAuth();
 
+  const navigate = useNavigate()
+
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  // Function to register the user
+  const register = async (fields) => {
+    const res = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(fields),
+    });
+    const data = await res.json();
+    if (res.status !== 200) {
+      throw {
+        status: res.status,
+        message: data.message,
+      };
+    }
+    //setUser(data);
+    console.log('user is registered and logged in: ', data)
+    return navigate("/")
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fields = Object.fromEntries(new FormData(e.target));
-    try {
-      await login(fields);
-    } catch (err) {
-      console.error(err);
+
+    if (fields['password'] !== fields['password-confirm']) {
+      setErrorMessage('Error - passwords do not match')
+    } else {
+      setErrorMessage(null)
+      try {
+        await register(fields);
+      } catch (err) {
+        console.error(err);
+      }
     }
-  };
+
+  
+    }
+
 
   if (user) {
     return <Navigate to={"/home"} />
   }
 
+
   return (
     <>
+    {errorMessage}
     <form onSubmit={handleSubmit}>
       <input type="text" name="username" placeholder="Enter Username" />
       <input type="password" name="password" placeholder="Enter Password" />
+      <input type="password" name="password-confirm" placeholder="Confirm Password" />
       <input type="submit" value="Login" />
     </form>
-    Not registered? Sign up here
     </>
   );
 };

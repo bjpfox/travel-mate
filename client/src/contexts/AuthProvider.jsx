@@ -71,6 +71,9 @@ export const AuthProvider = ({ children }) => {
     console.log('user is logged out: ', data)
   };
 
+
+
+
   // Return the children, with Authcontext.Provider wrapped around them
   // AuthContext Provider is passed the user, login and logout 
   // so children will have now access to these
