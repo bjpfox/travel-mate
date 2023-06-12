@@ -4,26 +4,39 @@ import { Navigate, redirect, useNavigate } from "react-router-dom"
 const CreateTrip = () => {
   const [trip, setFields] = useState({ destination: "" })
 
+  const [isLoading, setLoading] = useState(false)
+
   const navigate = useNavigate()
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(trip);
-    const sendPostTripRequest = async() => {
-            console.log('trip:',trip)
-            const res = await fetch(`/api/trips`, {
-                method: "POST",
-                headers: {
-                  "Content-type": "application/json",
-                },
-                // body: { trip },
-                body: JSON.stringify({ trip }),
-                })
-            console.log(res)
-        }
-    sendPostTripRequest()
 
-    return navigate("/view-trips") 
+    const asyncSubmit = async() => {
+      const sendPostTripRequest = async() => {
+        try{
+          console.log('trip:',trip)
+          const res = await fetch(`/api/trips`, {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+              },
+              // body: { trip },
+              body: JSON.stringify({ trip }),
+              })
+          console.log(res)
+        } catch (error) {
+          console.error(error)
+        } finally {
+              setLoading(false)
+              return navigate("/view-trips") 
+        }
+      }
+      event.preventDefault();
+      //console.log(trip);
+      setLoading(true)
+      await sendPostTripRequest()
+    }
+    asyncSubmit()
+
     // return <Navigate to="/view-trips"/> //replace={true} />
     //return redirect("/view-trips") // TODO - not working properly - debug this
         //return false
@@ -32,6 +45,12 @@ const CreateTrip = () => {
   const handleChange = (event) => {
     setFields({ ...trip, [event.target.name]: event.target.value });
   };
+
+
+  if (isLoading) {
+    return <div>Loading itinerary....please wait</div>
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <h1>Create a trip</h1>
