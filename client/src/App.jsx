@@ -15,6 +15,7 @@ import CreateTrip from './components/CreateTrip';
 import EditTrip from './components/EditTrip'
 import ViewItinerary from "./components/ViewItinerary"
 import DeleteTrip from './components/DeleteTrip';
+import SignupForm from './components/SignupForm';
 
 function App() {
   const { user } = useAuth();
@@ -45,6 +46,7 @@ function App() {
           <Route path="/view-itinerary/:id" element={<ViewItinerary />} />
         </Route>
       <Route path='/' /> 
+      <Route path='/signup' element={<SignupForm />} /> 
       <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
