@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, InfoWindow, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '400px',
@@ -7,46 +7,60 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 3.745,
-  lng: 38.523
+  lat: 51.5194,
+  lng: -0.1269
 };
 
-function ItineraryMap() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyDBmL34Al53829gza-X9ewSx_rxEhJEyQw"
-  })
-
-  const [mapItin, setMap] = React.useState(null)
-
-  const onLoad = React.useCallback(function callback(mapItin) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    mapItin.fitBounds(bounds);
-
-    setMap(mapItin)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(mapItin) {
-    setMap(null)
-  }, [])
-
-  return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>
+const position = {
+  lat: 51.5194,
+  lng: -0.1269
 }
 
-export default ItineraryMap
+const position2 = {
+  lat: 51.52,
+  lng: -0.13
+}
 
-// export default React.memo(ItineraryMap)
 
-//React.memo(MyComponent)
+// const center = {
+//   lat: -3.745,
+//   lng: -38.523
+// };
+
+// const position = {
+//   lat: -3.745,
+//   lng: -38.523
+// };
+
+function ItineraryMap(props) {
+  const { itinerary } = props
+  return (
+    <LoadScript googleMapsApiKey="AIzaSyDBmL34Al53829gza-X9ewSx_rxEhJEyQw" >
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} >
+        { /* Child components, such as markers, info windows, etc. */ }
+        {itinerary && itinerary.map((activity) => {
+          const coordinates = {
+            lat: (activity["Latitude"]),
+            lng: (activity["Longitude"])
+          }
+          console.log('coor',coordinates)
+          return (<MarkerF label={activity["Title"]} position={coordinates} />)
+        })}
+        
+        {/* <Marker position={position} label="test" /> */}
+        {/* <InfoWindow position={position2} >
+          <div>
+          <h1>InfoWindow</h1>
+          blah
+          <br>blahblah</br>
+          </div>
+        </InfoWindow> */}
+        <></>
+      </GoogleMap>
+    </LoadScript>
+  )
+}
+
+export default React.memo(ItineraryMap)
+
+//export default ItineraryMap
