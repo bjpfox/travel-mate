@@ -1,15 +1,18 @@
 import React from 'react'
 import { GoogleMap, MarkerF, InfoWindow, LoadScript } from '@react-google-maps/api';
 
+
+
+
 const containerStyle = {
   width: '400px',
   height: '400px'
 };
 
-const center = {
-  lat: 51.5194,
-  lng: -0.1269
-};
+// const center = {
+//   lat: 51.5194,
+//   lng: -0.1269
+// };
 
 const position = {
   lat: 51.5194,
@@ -33,7 +36,13 @@ const position2 = {
 // };
 
 function ItineraryMap(props) {
-  const { itinerary } = props
+  const { itinerary, center } = props
+
+  // if (itinerary) {
+  //   console.log('itin isnow',itinerary)
+  //   const center = getMapCenter(itinerary)
+  //   console.log('center is', center)
+  // }
 
   const labelStyles = {
     color: 'blue',

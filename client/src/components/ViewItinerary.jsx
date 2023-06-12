@@ -66,6 +66,7 @@ import {
 // Displays a list of trips (title, departure) so user can then, view, edit, or delete a specific trip
 function ViewItinerary () {
     const [itinerary, setItinerary] = useState([])
+    const [center, setMapCenter] = useState(null)
     const [trip, setTrips] = useState(null)
 
     const { id } = useParams()
@@ -109,6 +110,32 @@ function ViewItinerary () {
           //return false
       }
 
+      function getMapCenter(itinerary) {
+        let minLat = itinerary[0]["Latitude"]
+        let maxLat = itinerary[0]["Latitude"]
+        let minLng = itinerary[0]["Longitude"]
+        let maxLng = itinerary[0]["Longitude"]
+        itinerary.forEach((location) => {
+          minLat = location["Latitude"] < minLat ? location["Latitude"] : minLat 
+          maxLat = location["Latitude"] > minLat ? location["Latitude"] : maxLat 
+          minLng = location["Longitude"] < minLng ? location["Longitude"] : minLng 
+          maxLng = location["Longitude"] > maxLng ? location["Longitude"] : maxLng 
+        })
+        const height = Math.abs(minLat-maxLat)
+        const centerLat = minLat + (height/2)
+        const width = Math.abs(minLng-maxLng)
+        const centerLng = minLng + (width/2)
+        const center = {
+          "lat": centerLat,
+          "lng": centerLng
+        }
+        console.log('minlat',minLat)
+        console.log('maxlat',maxLat)
+        console.log('minlng',minLng)
+        console.log('maxlng',maxLng)
+        console.log('center',center)
+        return center
+      }
 
     useEffect(() => {
       const fetchTrips = async() => {
@@ -142,6 +169,9 @@ function ViewItinerary () {
             })
             // setTrips(data)
             setItinerary(itineraryData)
+            
+            const center = getMapCenter(itineraryData)
+            setMapCenter(center)
             //setItinerary(itineraryMockData)
         }
         fetchItinerary()
@@ -149,7 +179,7 @@ function ViewItinerary () {
     return (
     // <Accordion allowMultiple>
     <>
-      <ItineraryMap itinerary={itinerary}></ItineraryMap>
+      <ItineraryMap center={center} itinerary={itinerary}></ItineraryMap>
       <Heading>{trip && trip.destination}</Heading>
       {/* <ItineraryMap></ItineraryMap> */}
         {
