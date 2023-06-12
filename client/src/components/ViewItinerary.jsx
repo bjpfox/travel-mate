@@ -149,7 +149,7 @@ function ViewItinerary () {
     return (
     // <Accordion allowMultiple>
     <>
-      <ItineraryMap></ItineraryMap>
+      <ItineraryMap itinerary={itinerary}></ItineraryMap>
       <Heading>{trip && trip.destination}</Heading>
       {/* <ItineraryMap></ItineraryMap> */}
         {
