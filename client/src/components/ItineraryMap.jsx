@@ -34,6 +34,14 @@ const position2 = {
 
 function ItineraryMap(props) {
   const { itinerary } = props
+
+  const labelStyles = {
+    color: 'blue',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    // backgroundColor: 'yellow'
+  };
+
   return (
     <LoadScript googleMapsApiKey="AIzaSyDBmL34Al53829gza-X9ewSx_rxEhJEyQw" >
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} >
@@ -44,9 +52,14 @@ function ItineraryMap(props) {
             lng: (activity["Longitude"])
           }
           console.log('coor',coordinates)
-          return (<MarkerF label={activity["Title"]} position={coordinates} />)
+          return (<MarkerF label={{
+            text: activity["Title"],
+            ...labelStyles,
+          }} position={coordinates} />)
+          //return (<MarkerF label={activity["Title"]} position={coordinates} />)
         })}
-        
+            
+     
         {/* <Marker position={position} label="test" /> */}
         {/* <InfoWindow position={position2} >
           <div>
