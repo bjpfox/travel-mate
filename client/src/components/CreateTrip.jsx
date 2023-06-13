@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Navigate, redirect, useNavigate } from "react-router-dom"
 
+import { Progress } from '@chakra-ui/react'
+
 const CreateTrip = () => {
   const [trip, setFields] = useState({ destination: "" })
 
@@ -48,12 +50,15 @@ const CreateTrip = () => {
 
 
   if (isLoading) {
-    return <div>Loading itinerary....please wait</div>
-  }
+    return <div>
+        <Progress size='xs' isIndeterminate />
+        Loading itinerary....please wait
+        </div>
+  } 
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Create a trip</h1>
+      <h3>Create a trip</h3>
       <input
         type="text"
         name="destination"
@@ -103,7 +108,7 @@ const CreateTrip = () => {
         onChange={handleChange}
       />
       <br />
-      <input type="submit" />
+      <input class="submit-btn" type="submit" />
     </form>
   );
 };
