@@ -3,8 +3,6 @@ import { Link, Navigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { login, logout, user } = useAuth();
-  console.log('useris now', user)
-  console.log('login is',login)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +14,7 @@ const LoginForm = () => {
     }
   };
 
-  // Check this
-  console.log('abc', user)
   if (user) {
-    console.log('user is:   ', user)
     return <Navigate to={"/Home"} />
   }
 

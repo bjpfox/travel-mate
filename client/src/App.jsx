@@ -24,7 +24,6 @@ function App() {
     <>
       <Heading size="3xl" color={"#4D5264"}>Travel Mate</Heading>
 
-{/* Does this home component make sense? Should Links be part of a Nav component? */}
         { !user ? 
         <LoginForm /> : 
         <>
