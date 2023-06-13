@@ -50,10 +50,10 @@ const DeleteTrip = (props) => {
 
   return (
     <>
-      <Button onClick={onOpen}>Delete trip</Button>
+      <Button m={3} backgroundColor={"#7EB6D7"} onClick={onOpen}>Delete trip</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-          <ModalContent>
+          <ModalContent backgroundColor={"#FCEE96"} >
             <ModalHeader>Delete Trip</ModalHeader>
             <ModalCloseButton />
             <ModalBody>

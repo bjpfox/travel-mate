@@ -3,7 +3,41 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #FDBFAF;
 } 
+
+input, textarea {
+  padding: 10px;
+  min-width: 400px;
+  /* background-color: white; */
+  background-color: #FDBFAF;
+  color: #4D5264;
+}
+
+.submit-btn {
+  background-color: #7EB6D7;
+  color: black;
+  font-weight: bold;
+}
+
+/* h1 {
+  font-size: xx-large;
+  color: #4D5264;
+} */
+
+h3 {
+  font-size: x-large;
+  padding: 10px;
+}
+
+#logout-btn {
+  background-color: #FDBFAF;
+  /* border: 2px solid black; */
+  border-radius: 10px; 
+  max-width: 100px;
+  min-width: none;
+  text-decoration: underline
+}
 
 /* 
 .logo {

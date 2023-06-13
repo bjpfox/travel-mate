@@ -45,7 +45,7 @@ const EditTrip = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Edit your trip</h1>
+      <h3>Edit your trip</h3>
       <input
         type="text"
         name="destination"
@@ -95,7 +95,7 @@ const EditTrip = () => {
         onChange={handleChange}
       />
       <br />
-      <input type="submit" />
+      <input class="submit-btn" type="submit" />
     </form>
   );
 };

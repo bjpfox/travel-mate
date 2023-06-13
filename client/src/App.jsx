@@ -22,19 +22,20 @@ function App() {
 
   return (
     <>
-      <Heading color={"#7EB6D7"}>Travel Mate</Heading>
+      <Heading size="3xl" color={"#4D5264"}>Travel Mate</Heading>
 
 {/* Does this home component make sense? Should Links be part of a Nav component? */}
-      <Routes>
-        <Route path='/' element={<Home />} />
-      </Routes>
         { !user ? 
         <LoginForm /> : 
         <>
           <Logout /> 
+
               <Link to="/">Home</Link> | 
               <Link to="/view-trips"> View Trips</Link> |  
               <Link to="/create-new-trip"> Create New Trip</Link>
+              <Routes>
+                <Route path='/' element={<Home />} />
+              </Routes>
         </>
     }
       <Routes>
