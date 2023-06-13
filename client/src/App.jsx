@@ -22,7 +22,7 @@ function App() {
 
   return (
     <>
-      <Heading>Travel Mate</Heading>
+      <Heading color={"#7EB6D7"}>Travel Mate</Heading>
 
 {/* Does this home component make sense? Should Links be part of a Nav component? */}
       <Routes>
