@@ -3,20 +3,15 @@ import { Navigate, redirect, useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react";
 
 const EditTrip = () => {
-
   const { id } = useParams()
-
   const navigate = useNavigate()
-  
-  const [trip, setFields] = useState( {} ) // Can just initiatilise to empty object {} ?
+  const [trip, setFields] = useState( {} ) 
 
     useEffect(() => {
         const fetchTrips = async() => {
             const res = await fetch(`../api/trips?id=${id}`)
-            console.log('res: ', res)
             const data = await res.json()
             setFields(data)
-            console.log('data: ', data)
         }
         fetchTrips()
     }, [])
@@ -32,12 +27,9 @@ const EditTrip = () => {
                 },
                 body: JSON.stringify({ trip }),
                 })
-            console.log('trip is: ', trip)
-            console.log('res is: ', res)
         }
     sendPutTripRequest()
-    return navigate("/view-trips") // TODO - not working properly - debug this
-        //return false
+    return navigate("/view-trips") 
     }
 
   const handleChange = (event) => {

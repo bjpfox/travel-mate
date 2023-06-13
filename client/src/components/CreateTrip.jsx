@@ -15,16 +15,13 @@ const CreateTrip = () => {
     const asyncSubmit = async() => {
       const sendPostTripRequest = async() => {
         try{
-          console.log('trip:',trip)
           const res = await fetch(`/api/trips`, {
               method: "POST",
               headers: {
                 "Content-type": "application/json",
               },
-              // body: { trip },
               body: JSON.stringify({ trip }),
               })
-          console.log(res)
         } catch (error) {
           console.error(error)
         } finally {
@@ -33,15 +30,10 @@ const CreateTrip = () => {
         }
       }
       event.preventDefault();
-      //console.log(trip);
       setLoading(true)
       await sendPostTripRequest()
     }
     asyncSubmit()
-
-    // return <Navigate to="/view-trips"/> //replace={true} />
-    //return redirect("/view-trips") // TODO - not working properly - debug this
-        //return false
     }
 
   const handleChange = (event) => {

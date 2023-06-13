@@ -22,9 +22,6 @@ router.post('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { json_result } = req.body
   const { id: userID } = req.session.user
 
-  console.log('jsonis',json_result)
-  console.log('tripID',tripID)
-
     const query = `
       INSERT INTO itineraries (json_result, trip_id)
       VALUES ($1, $2)
@@ -61,8 +58,6 @@ router.put('/:tripID', loginRequired, asyncHandler(async (req, res) => {
   const { tripID } = req.params
   const { json_result } = req.body
   const { id: userID } = req.session.user
-  console.log('jsonis',json_result)
-  console.log('tripID',tripID)
 
     const query = `
       UPDATE itineraries 

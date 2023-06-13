@@ -25,8 +25,6 @@ const SignupForm = () => {
         message: data.message,
       };
     }
-    //setUser(data);
-    console.log('user is registered and logged in: ', data)
     return navigate("/")
   };
 
@@ -45,8 +43,6 @@ const SignupForm = () => {
         console.error(err);
       }
     }
-
-  
     }
 
 

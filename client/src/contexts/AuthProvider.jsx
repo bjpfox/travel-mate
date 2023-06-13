@@ -21,12 +21,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if current user is logged in
     const loginCheck = async () => {
-      console.log("i checked ifuser was logged in")
       const res = await fetch("/api/session");
       const userObject = await res.json();
       if (res.status === 200) {
         setUser(userObject);
-        console.log('result was user: ', userObject)
       }
     }
     loginCheck()
@@ -49,7 +47,6 @@ export const AuthProvider = ({ children }) => {
       };
     }
     setUser(data);
-    console.log('user is logged in: ', data)
   };
 
   // Create function called logout which Log out current user
@@ -68,7 +65,6 @@ export const AuthProvider = ({ children }) => {
       };
     }
     setUser(null);
-    console.log('user is logged out: ', data)
   };
 
 
@@ -77,11 +73,9 @@ export const AuthProvider = ({ children }) => {
   // Return the children, with Authcontext.Provider wrapped around them
   // AuthContext Provider is passed the user, login and logout 
   // so children will have now access to these
-  console.log('userobjectis: ', user)
   return (
     <AuthContext.Provider value={{login, logout, user }}>
       {children}
-      {/* {console.log('user now:', user) && children} */}
     </AuthContext.Provider>
   );
 };

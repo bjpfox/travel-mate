@@ -64,8 +64,7 @@ async function fetchItinFromLLM(itinQuery) {
 
     const itinResponse = responseBody.choices[0].message.content  || false
     const itinerary = JSON.parse(itinResponse)["TravelIdeas"] || false
-    // const itinerary = JSON.parse(itinResponse) || false
-    console.log('GPT responsewas TI',itinerary)
+    console.log('GPT response was:',itinerary)
 
     if (validateJson(itinerary, itinerarySchema)) {
         console.log('JSON schema passed')
@@ -78,67 +77,3 @@ async function fetchItinFromLLM(itinQuery) {
 
 module.exports = { fetchItinFromLLM }
 
-
-  // ChatGPT response:
-  // {
-  // "type": "array",
-  // "items": [
-  // {
-  // "Location": "Colosseum",
-  // "Description": "Visit the iconic Colosseum, an ancient amphitheater known for its historical significance and architectural grandeur.",
-  // "Latitude": 41.8902,
-  // "Longitude": 12.4922,
-  // "Website": "https://www.coopculture.it/en/colosseo-e-shop.cfm",
-  // "Category": "Sightseeing"
-  // },
-  // {
-  // "Location": "Trevi Fountain",
-  // "Description": "Marvel at the stunning Trevi Fountain, the largest Baroque fountain in Rome known for its intricate sculptures and stunning water displays.",
-  // "Latitude": 41.9009,
-  // "Longitude": 12.4833,
-  // "Website": "https://www.turismoroma.it/en/places/trevi-fountain",
-  // "Category": "Sightseeing"
-  // },
-  // {
-  // "Location": "Roman Forum",
-  // "Description": "Explore the ancient Roman Forum, a sprawling archaeological site that was once the center of ancient Rome's political, religious, and commercial activities.",
-  // "Latitude": 41.8926,
-  // "Longitude": 12.4853,
-  // "Website": "https://www.coopculture.it/en/colosseo-e-shop.cfm",
-  // "Category": "Sightseeing"
-  // },
-  // {
-  // "Location": "Pantheon",
-  // "Description": "Visit the Pantheon, a well-preserved ancient Roman temple and one of the best-preserved buildings from ancient Rome, renowned for its impressive dome.",
-  // "Latitude": 41.8986,
-  // "Longitude": 12.4769,
-  // "Website": "https://www.turismoroma.it/en/places/pantheon",
-  // "Category": "Sightseeing"
-  // },
-  // {
-  // "Location": "Piazza Navona",
-  // "Description": "Stroll through the vibrant Piazza Navona, a beautiful square adorned with stunning fountains, impressive Baroque architecture, and lively atmosphere.",
-  // "Latitude": 41.8992,
-  // "Longitude": 12.4733,
-  // "Website": "https://www.turismoroma.it/en/places/piazza-navona",
-  // "Category": "Sightseeing"
-  // },
-  // {
-  // "Location": "Campo de' Fiori",
-  // "Description": "Experience the lively atmosphere of Campo de' Fiori, a bustling square known for its vibrant market during the day and vibrant nightlife.",
-  // "Latitude": 41.8958,
-  // "Longitude": 12.4728,
-  // "Website": "https://www.turismoroma.it/en/places/campo-de-fiori",
-  // "Category": "Sightseeing"
-  // },
-  // {
-  // "Location": "Trastevere",
-  // "Description": "Explore the charming neighborhood of Trastevere, known for its narrow cobblestone streets, colorful buildings, and vibrant nightlife. Enjoy authentic Roman cuisine in the local trattorias.",
-  // "Latitude": 41.8879,
-  // "Longitude": 12.4674,
-  // "Website": "https://www.turismoroma.it/en/places/trastevere",
-  // "Category": "Sightseeing"
-  // }
-  // ]
-  // }
-  

@@ -6,52 +6,19 @@ const containerStyle = {
   height: '400px'
 };
 
-// const center = {
-//   lat: 51.5194,
-//   lng: -0.1269
-// };
-
-// const position = {
-//   lat: 51.5194,
-//   lng: -0.1269
-// }
-
-// const position2 = {
-//   lat: 51.52,
-//   lng: -0.13
-// }
-
-
-// const center = {
-//   lat: -3.745,
-//   lng: -38.523
-// };
-
-// const position = {
-//   lat: -3.745,
-//   lng: -38.523
-// };
-
 function ItineraryMap(props) {
   const { itinerary, center } = props
-
-  // if (itinerary) {
-  //   console.log('itin isnow',itinerary)
-  //   const center = getMapCenter(itinerary)
-  //   console.log('center is', center)
-  // }
 
   const labelStyles = {
     color: 'blue',
     fontSize: '16px',
     fontWeight: 'bold',
-    // backgroundColor: 'yellow'
   };
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyDBmL34Al53829gza-X9ewSx_rxEhJEyQw" >
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={3} >
-        { /* Child components, such as markers, info windows, etc. */ }
+        { /* Child components, such as markers, info windows, etc. go here */ }
         {itinerary && itinerary.map((activity) => {
           const coordinates = {
             lat: (activity["Latitude"]),
@@ -62,11 +29,10 @@ function ItineraryMap(props) {
             text: activity["Title"],
             ...labelStyles,
           }} position={coordinates} />)
-          //return (<MarkerF label={activity["Title"]} position={coordinates} />)
         })}
             
      
-        {/* <Marker position={position} label="test" /> */}
+        {/* InfoWindow not working correctly - appears to be an issue with the library}
         {/* <InfoWindow position={position2} >
           <div>
           <h1>InfoWindow</h1>
@@ -82,4 +48,3 @@ function ItineraryMap(props) {
 
 export default React.memo(ItineraryMap)
 
-//export default ItineraryMap

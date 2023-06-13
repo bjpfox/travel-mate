@@ -3,16 +3,11 @@ import { Navigate, Link, redirect, useParams } from "react-router-dom"
 import { useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 
-
-
 const DeleteTrip = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  // const { id } = useParams()
   const id = props.tripId
   const { duration, destination, departure, trips, setTrips } = props
-  
-  const [trip, setFields] = useState( {} ) // Can just initiatilise to empty object {} ?
+  const [trip, setFields] = useState( {} ) 
 
     useEffect(() => {
         const fetchTrips = async() => {
@@ -37,15 +32,10 @@ const DeleteTrip = (props) => {
                 method: "DELETE",
                 headers: { "Content-type": "application/json", },
             })
-            console.log('trip is: ', trip)
-            console.log('res is: ', res)
         }
     sendDeleteTripRequest()
     removeTrip()
     onClose()
-    // return <Navigate to="/view-trips"/> //replace={true} />
-    //redirect("/view-trips") 
-        //return false
     }
 
   return (
