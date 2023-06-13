@@ -1,9 +1,6 @@
 import React from 'react'
 import { GoogleMap, MarkerF, InfoWindow, LoadScript } from '@react-google-maps/api';
 
-
-
-
 const containerStyle = {
   width: '400px',
   height: '400px'
@@ -14,15 +11,15 @@ const containerStyle = {
 //   lng: -0.1269
 // };
 
-const position = {
-  lat: 51.5194,
-  lng: -0.1269
-}
+// const position = {
+//   lat: 51.5194,
+//   lng: -0.1269
+// }
 
-const position2 = {
-  lat: 51.52,
-  lng: -0.13
-}
+// const position2 = {
+//   lat: 51.52,
+//   lng: -0.13
+// }
 
 
 // const center = {
@@ -53,7 +50,7 @@ function ItineraryMap(props) {
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyDBmL34Al53829gza-X9ewSx_rxEhJEyQw" >
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} >
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={3} >
         { /* Child components, such as markers, info windows, etc. */ }
         {itinerary && itinerary.map((activity) => {
           const coordinates = {
