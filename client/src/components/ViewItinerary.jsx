@@ -167,10 +167,10 @@ function ViewItinerary () {
               // const{ id } = location.state
                 return (
                   // Ideally we would have unique keys, this will still work but react will remount if title is changed
-                  <Card key={activity["key"]}>
-                    <CardBody>
+                  <Card key={activity["key"]} m={5}>
+                    <CardBody m={5}>
                     {/* <AccordionItem key={activity["Location"]}> */}
-                      <Grid h='200px' templateRows='repeat(6, 1fr)' templateColumns='repeat(4, 1fr)' gap={1} >
+                      <Grid h='200px' templateRows='repeat(7, 1fr)' templateColumns='repeat(4, 1fr)' gap={1}>
 
                       <GridItem rowSpan={1} colSpan={4} bg='tomato'>
                       <Editable onChange={(newValue) => {
@@ -220,12 +220,8 @@ function ViewItinerary () {
                         </Editable> 
                       </GridItem> 
 
-                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
-                        <FormLabel>Longitude:</FormLabel>
-                      </GridItem>
-
-                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
-                        <Editable  onChange={(newValue) => {
+                      <GridItem rowSpan={1} colSpan={2} bg=''>
+                        <Editable  _before={{content: '"Longitude: "', display: 'inline-block', mr: '5px' }}  onChange={(newValue) => {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Longitude': newValue} : act)
                         setItinerary(newItinerary)
                         console.log(itinerary)
@@ -235,12 +231,8 @@ function ViewItinerary () {
                         </Editable> 
                       </GridItem>
 
-                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
-                        <FormLabel>Latitude:</FormLabel>
-                      </GridItem>
-
-                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
-                        <Editable onChange={(newValue) => {
+                      <GridItem rowSpan={1} colSpan={2} bg=''>
+                        <Editable _before={{content: '"Latitude: "', display: 'inline-block', mr: '5px' }} onChange={(newValue) => {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Latitude': newValue} : act)
                         setItinerary(newItinerary)
                         console.log(itinerary)
@@ -250,7 +242,7 @@ function ViewItinerary () {
                         </Editable>
                       </GridItem>
 
-                      <GridItem rowSpan={1} colSpan={1} bg='tomato'>
+                      <GridItem rowSpan={1} colSpan={4} bg=''>
                         <Button id={index} onClick={(event) => {
                         //const newItinerary = itinerary.filter((act, i) => i !== index )
                         const newItinerary = itinerary.filter((act, i) => i !== parseInt(event.currentTarget.id))
