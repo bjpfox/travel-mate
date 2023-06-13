@@ -9,7 +9,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import { AuthProvider } from './contexts/AuthProvider.jsx'
 
-import theme from '../theme'
+import theme from './theme'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

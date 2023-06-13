@@ -154,8 +154,7 @@ function ViewItinerary () {
     return (
     // <Accordion allowMultiple>
     <>
-      <ItineraryMap center={center} itinerary={itinerary}></ItineraryMap>
-      <Heading>{trip && trip.destination}</Heading>
+      <Heading color={"#4D5264"}>{trip && trip.destination}</Heading>
       {/* <ItineraryMap></ItineraryMap> */}
         {
         //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
@@ -167,12 +166,12 @@ function ViewItinerary () {
               // const{ id } = location.state
                 return (
                   // Ideally we would have unique keys, this will still work but react will remount if title is changed
-                  <Card key={activity["key"]} m={5}>
-                    <CardBody m={5}>
+                  <Card backgroundColor={"#FCEE96"} key={activity["key"]} m={5} p={3}>
+                    <CardBody backgroundColor={"#FCEE96"} p={5}>
                     {/* <AccordionItem key={activity["Location"]}> */}
                       <Grid h='200px' templateRows='repeat(7, 1fr)' templateColumns='repeat(4, 1fr)' gap={1}>
 
-                      <GridItem rowSpan={1} colSpan={4} bg='tomato'>
+                      <GridItem rowSpan={1} colSpan={4} bg=''>
                       <Editable onChange={(newValue) => {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Title': newValue} : act)
                         setItinerary(newItinerary)
@@ -183,7 +182,7 @@ function ViewItinerary () {
                         </Editable>
                       </GridItem>
 
-                      <GridItem rowSpan={1} colSpan={4} bg='papayawhip'>
+                      <GridItem rowSpan={1} colSpan={4} bg=''>
                         <Editable onChange={(newValue) => {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Description': newValue} : act)
                         setItinerary(newItinerary)
@@ -194,7 +193,7 @@ function ViewItinerary () {
                         </Editable>
                       </GridItem>
                    
-                      <GridItem rowSpan={1} colSpan={4}  bg='papayawhip'>
+                      <GridItem rowSpan={1} colSpan={4}  bg=''>
                         <Editable onChange={(newValue) => {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Website': newValue} : act)
                         setItinerary(newItinerary)
@@ -209,7 +208,7 @@ function ViewItinerary () {
                         <AccordionButton/>
                         <AccordionPanel> */}
                    
-                      <GridItem rowSpan={1} colSpan={4} bg='papayawhip'>
+                      <GridItem rowSpan={1} colSpan={4} bg=''>
                         <Editable onChange={(newValue) => {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Category': newValue} : act)
                         setItinerary(newItinerary)
@@ -225,7 +224,7 @@ function ViewItinerary () {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Longitude': newValue} : act)
                         setItinerary(newItinerary)
                         console.log(itinerary)
-                        }} placeholder="Enter Longitude (measured in degrees from North) e.g. 51.25" defaultValue={activity["Longitude"]}>
+                        }} placeholder="Measured in degrees from North e.g. 51.25" defaultValue={activity["Longitude"]}>
                         <EditablePreview />
                         <EditableInput />
                         </Editable> 
@@ -236,14 +235,14 @@ function ViewItinerary () {
                         const newItinerary = itinerary.map((act, i) => i === index ? {...act, 'Latitude': newValue} : act)
                         setItinerary(newItinerary)
                         console.log(itinerary)
-                        }} placeholder="Enter Latitude (measured in degrees from West) e.g. -2.15" defaultValue={activity["Latitude"]}>
+                        }} placeholder="Measured in degrees from West e.g. -2.15" defaultValue={activity["Latitude"]}>
                         <EditablePreview />
                         <EditableInput />
                         </Editable>
                       </GridItem>
 
                       <GridItem rowSpan={1} colSpan={4} bg=''>
-                        <Button id={index} onClick={(event) => {
+                        <Button backgroundColor={"#7EB6D7"} id={index} onClick={(event) => {
                         //const newItinerary = itinerary.filter((act, i) => i !== index )
                         const newItinerary = itinerary.filter((act, i) => i !== parseInt(event.currentTarget.id))
                         console.log('index:', index)
@@ -262,8 +261,9 @@ function ViewItinerary () {
               })
         }
         {/* </Accordion> */}
-        <Button onClick={addNewActivity}>Add new activity</Button>
-        <Button onClick={saveChanges}>Save changes...</Button>
+        <Button backgroundColor={"#7EB6D7"} onClick={addNewActivity}>Add new activity</Button>
+        <Button m={3} backgroundColor={"#7EB6D7"} onClick={saveChanges}>Save changes...</Button>
+        <ItineraryMap center={center} itinerary={itinerary}></ItineraryMap>
       </>
        )
 }
