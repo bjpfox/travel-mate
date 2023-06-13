@@ -5,7 +5,7 @@ const Home = () => {
     const { user } = useAuth()
   return (
     <div>
-      {user ? <h5>Welcome to TravelMate, {user?.username} </h5> : 'Travel Itinerary Generator'}
+      {user ? <h3>Welcome to TravelMate, {user?.username}! </h3> : 'Travel Itinerary Generator'}
     </div>
   );
 };

@@ -26,7 +26,7 @@ function ViewTrips() {
         }
         fetchTrips()
     }, [])
-    return (<Accordion allowMultiple>My Saved Trips
+    return (<Accordion allowMultiple><h3>My saved trips</h3>
         {
         //trips && console.log('trips:', trips) && trips.map(([trip_id, trip_destination, trip_time_of_departure, 
         // trip_duration, trip_activities, trip_budget, trip_additional_information, trip_created_on, trip_updated_on ]) => {
@@ -36,9 +36,10 @@ function ViewTrips() {
               // const{ id } = location.state
                 return (
                     <AccordionItem key={trip.id}>
+                        <AccordionButton>
                         {trip.destination}, {trip.time_of_departure} for {trip.duration}
                         <AccordionIcon/>
-                        <AccordionButton/>
+                        </AccordionButton>
                         <AccordionPanel>
                         Activities: <Text as="i">{trip.activities}</Text>
                         <br />Budget: <Text as="i">{trip.budget}</Text>
@@ -47,11 +48,11 @@ function ViewTrips() {
                         <br /> 
                         {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
                         {/* </AccordionPanel> */}
-                        <Button onClick={() => navigate(`/edit-trip/${trip.id}`)}>Edit Trip</Button>
+                        <Button backgroundColor={"#7EB6D7"} onClick={() => navigate(`/edit-trip/${trip.id}`)}>Edit Trip</Button>
                         {/* <Link to={`/edit-trip/${trip.id}`}> Edit Trip</Link>  |  */}
                         <DeleteTrip trips={trips} destination={trip.destination} departure={trip.time_of_departure} duration={trip.duration} setTrips={setTrips} tripId={`${trip.id}`}></DeleteTrip>
                         {/* <Link to={`/delete-trip/${trip.id}`}> Delete Trip</Link> | */}
-                        <Button onClick={() => navigate(`/view-itinerary/${trip.id}`)}>View/Edit Itinerary</Button>
+                        <Button backgroundColor={"#7EB6D7"} onClick={() => navigate(`/view-itinerary/${trip.id}`)}>View/Edit Itinerary</Button>
                         {/* <Link to={`/view-itinerary/${trip.id}`}> View/Edit Itinerary</Link>   */}
                         </AccordionPanel>
                     </AccordionItem>
