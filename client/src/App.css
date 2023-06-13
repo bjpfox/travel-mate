@@ -12,6 +12,11 @@ input, textarea {
   /* background-color: white; */
   background-color: #FDBFAF;
   color: #4D5264;
+  margin: 10px;
+}
+
+form {
+  background-color: #FDBFAF;
 }
 
 .submit-btn {
