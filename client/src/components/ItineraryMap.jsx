@@ -2,15 +2,15 @@ import React from 'react'
 import { GoogleMap, MarkerF, InfoWindow, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '1000px',
+  height: '600px'
 };
 
 function ItineraryMap(props) {
   const { itinerary, center } = props
 
   const labelStyles = {
-    color: 'blue',
+    color: '#4D5264',
     fontSize: '16px',
     fontWeight: 'bold',
   };
