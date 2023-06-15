@@ -17,7 +17,7 @@ As I user of travel-mate, I want:
 * Colour scheme that suits the holiday vibe
 
 ## Approach  
-* From the user stores I wanted flexible input using natural langauge, whilst also providing some suggested aspects (budget, time of year, trip duration) to ensure the user got the most relevant ideas. For this reason, it made sense to use a large language model such as ChatGPT to handle open ended queries whilst still providing consistent structured responses (in JSON format) that could be rendered as a list and displayed on a map. By experimenting with different query formats, and using as JSON schema, I was able to find a response that consistently gave the required data (title, description, website URL, longitude/latitude) in a consistent JSON object. 
+From the user stores I wanted to allow for flexible input using natural langauge, whilst also providing users with some guidance by asking relevant questions (e.g. budget, time of year, trip duration) to ensure the user got the most relevant trip ideas. For this reason, it made sense to use a large language model such as ChatGPT that could handle open ended queries while still providing consistent structured responses (in JSON format) that could be rendered as a list and displayed on a map. By experimenting with different query formats, and using as JSON schema, I was able to find a response that consistently gave the required data (title, description, website URL, longitude/latitude) in a consistent JSON object. 
 
 ## Technologies used
 * Server: Node Express 
