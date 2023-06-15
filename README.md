@@ -53,3 +53,4 @@ Due to time limitations, the below features have not yet been implemented. Futur
 * Budget tracking features
 * Day by day trip planning
 * Enable refresh of trip itinerary ideas from API when trip is edited (while still retaining any user added trip ideas)
+* General improvements to UI (e.g. provide feedback using Chakra toast on events like form submission)
