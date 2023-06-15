@@ -8,11 +8,11 @@ by suggesting ideas for trip itineraries. Travel Mate allows users to add their 
 ## User stories
 As I user of travel-mate, I want:
 * To quickly and easily add, edit and delete trips
-* The ability to store multiple trips
-* To have trip ideas automatically generated / suggested, but also the ability to add my own ideas and remove ideas I'm not interested in
+* The ability to store multiple trips under my account
+* To have trip ideas automatically generated / suggested, but also the ability to add my own ideas and to remove ideas I'm not interested in
 * To be able to specify aspects like my budget, my interests, the time of year, trip duration, and to recieve personalised suggestions that take this into account
 * To be able to specify multiple cities and countries in one trip, if preferred
-* To see the ideas on a map to help visualise distance between and logistics of getting from one activity to the next
+* To see the ideas on a map to help visualise distance between activities and logistics of getting from one activity to the next
 * To view website links for each activity to obtain more detailed information, book tickets, etc
 * Colour scheme that suits the holiday vibe
 
@@ -43,7 +43,7 @@ From the user stores I wanted to allow for flexible input using natural langauge
 ![Diagram showing modals for delete trip](./screenshots/Screenshot4.png) 
 
 ## Wireframes
-The below ideas were generated during the initial stages to help visualise what form travel-mate could take. Page layouts were then developed further during development and testing.
+The below ideas were generated during the initial stages to help visualise what form travel-mate could take. From these initial ideas, page layouts were then further developed during testing and development. 
 ![Initial wireframe concept for the create trip form](./screenshots/Wireframe-CreateNewTrip.png) 
 ![Initial wireframe concept for the view trips page](./screenshots/Wireframe-MySavedTrips.png) 
 ![Initial wireframe concept for a layout that could show future options like a packing list, weather information and safety/security advice, alongside the trip itinerary.](./screenshots/Wireframe-FutureWork.png) 
