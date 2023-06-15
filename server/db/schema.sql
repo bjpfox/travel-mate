@@ -20,7 +20,6 @@ CREATE TABLE trips (
   activities TEXT,
   budget TEXT,
   additional_information TEXT,
-  -- TODO - check this
   created_on TIMESTAMPTZ DEFAULT current_timestamp, 
   updated_on TIMESTAMPTZ DEFAULT current_timestamp,
   user_id INT REFERENCES users (id) ON DELETE CASCADE
