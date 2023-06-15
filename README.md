@@ -37,13 +37,16 @@ As I user of travel-mate, I want:
 * run **npm run dev** in the client directory to run vite in dev mode to run app locally
 
 ## Screenshots
-TODO
+![Diagram showing a typical trip itinerary](./screenshots/Screenshot1.png) 
+![Diagram showing a typical trip itinerary](./screenshots/Screenshot2.png) 
+![Diagram showing the view trips page](./screenshots/Screenshot3.png) 
+![Diagram showing modals for delete trip](./screenshots/Screenshot4.png) 
 
 ## Wireframes
-The below ideas were generated during the initial stages to help visualise what form travel-mate could take.
-* Create trip
-* View trips
-* Possible future layout incorporating other features 
+The below ideas were generated during the initial stages to help visualise what form travel-mate could take. Page layouts were then developed further during development and testing.
+![Initial wireframe concept for the create trip form](./screenshots/Wireframe-CreateNewTrip.png) 
+![Initial wireframe concept for the view trips page](./screenshots/Wireframe-MySavedTrips.png) 
+![Initial wireframe concept for a layout that could show future options like a packing list, weather information and safety/security advice, alongside the trip itinerary.](./screenshots/Wireframe-FutureWork.png) 
 
 ## Unsolved problems / future work
 Due to time limitations, the below features have not yet been implemented. Future versions of Travel Mate may include:
