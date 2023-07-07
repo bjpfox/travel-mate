@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useLocation, useParams, Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {
     Accordion,
     AccordionItem,
@@ -19,15 +19,24 @@ function ViewTrips() {
 
     useEffect(() => {
         const fetchTrips = async() => {
-            const res = await fetch(`./api/trips`)
-            const data = await res.json()
-            setTrips(data)
+            try {
+                const res = await fetch(`./api/trips`)
+                if (!res.ok) {
+                    throw new Error("Failed to fetch trips")
+                }
+                const data = await res.json()
+                setTrips(data)
+            } catch (error) {
+                console.error(error)
+            }
         }
         fetchTrips()
     }, [])
-    return (<Accordion allowMultiple><h3>My saved trips</h3>
-        {
-        trips && trips.map((trip) => {
+    return (
+        <Accordion allowMultiple>
+            <h3>My saved trips</h3>
+            {
+            trips && trips.map((trip) => {
                 return (
                     <AccordionItem key={trip.id}>
                         <AccordionButton>
@@ -46,9 +55,10 @@ function ViewTrips() {
                         </AccordionPanel>
                     </AccordionItem>
                 )
-              })
-        }
-       </Accordion>)
+                })
+            }
+       </Accordion>
+    )
 }
 
 export default ViewTrips

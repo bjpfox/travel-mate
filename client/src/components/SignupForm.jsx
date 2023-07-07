@@ -1,9 +1,9 @@
 import { useAuth } from "../contexts/AuthProvider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react"
 
 const SignupForm = () => {
-  const { login, user } = useAuth();
+  const { user } = useAuth();
 
   const navigate = useNavigate()
 
@@ -58,7 +58,7 @@ const SignupForm = () => {
       <input type="text" name="username" placeholder="Enter Username" />
       <input type="password" name="password" placeholder="Enter Password" />
       <input type="password" name="password-confirm" placeholder="Confirm Password" />
-      <input type="submit" value="Login" />
+      <input type="submit" value="Register" />
     </form>
     </>
   );

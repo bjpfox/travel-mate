@@ -11,11 +11,15 @@ const DeleteTrip = (props) => {
 
     useEffect(() => {
         const fetchTrips = async() => {
+          try {
             const res = await fetch(`../api/trips?id=${id}`)
-            console.log('res: ', res)
+            //console.log('res: ', res)
             const data = await res.json()
             setFields(data)
-            console.log('data: ', data)
+            //console.log('data: ', data)
+          } catch (error) {
+            console.error(error)
+          }
         }
         fetchTrips()
     }, [])

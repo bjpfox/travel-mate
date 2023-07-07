@@ -2,7 +2,7 @@ import { useAuth } from "../contexts/AuthProvider";
 import { Link, Navigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const { login, logout, user } = useAuth();
+  const { login, user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,9 @@ const LoginForm = () => {
       <input type="password" name="password" placeholder="Enter Password" />
       <input type="submit" value="Login" />
     </form>
-    Not registered?  <Link to="/signup">Sign up here</Link>
+    <p>
+      Not registered?  <Link to="/signup">Sign up here</Link>
+    </p>
     </>
   );
 };

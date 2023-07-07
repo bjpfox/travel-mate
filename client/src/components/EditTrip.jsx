@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, redirect, useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react";
 
 const EditTrip = () => {
@@ -20,21 +20,26 @@ const EditTrip = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const sendPutTripRequest = async() => {
-            const res = await fetch(`/api/trips/${id}`, {
-                method: "PUT",
-                headers: {
-                  "Content-type": "application/json",
-                },
-                body: JSON.stringify({ trip }),
-                })
-        }
+      try {
+        const res = await fetch(`/api/trips/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({ trip }),
+            })
+      } catch(error) {
+        console.error(error)
+      }
+    }
     sendPutTripRequest()
     return navigate("/view-trips") 
-    }
+  }
 
   const handleChange = (event) => {
     setFields({ ...trip, [event.target.name]: event.target.value });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h3>Edit your trip</h3>
@@ -45,6 +50,7 @@ const EditTrip = () => {
         value={trip.destination}
         onChange={handleChange}
       />
+
       <br />
       <input
         type="text"
@@ -62,6 +68,7 @@ const EditTrip = () => {
         value={trip.duration}
         onChange={handleChange}
       />
+
       <br />
       <input
         type="text"
@@ -70,6 +77,7 @@ const EditTrip = () => {
         value={trip.activities}
         onChange={handleChange}
       />
+
       <br />
       <input
         type="text"
@@ -78,6 +86,7 @@ const EditTrip = () => {
         value={trip.budget}
         onChange={handleChange}
       />
+
       <br />
       <textarea
         type="text"
@@ -86,8 +95,9 @@ const EditTrip = () => {
         value={trip.additional_information}
         onChange={handleChange}
       />
+
       <br />
-      <input class="submit-btn" type="submit" />
+      <input className="submit-btn" type="submit" />
     </form>
   );
 };

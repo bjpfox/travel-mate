@@ -1,17 +1,13 @@
 import { useState } from "react";
-import { Navigate, redirect, useNavigate } from "react-router-dom"
-
+import { useNavigate } from "react-router-dom"
 import { Progress } from '@chakra-ui/react'
 
 const CreateTrip = () => {
   const [trip, setFields] = useState({ destination: "" })
-
   const [isLoading, setLoading] = useState(false)
-
   const navigate = useNavigate()
-
+  
   const handleSubmit = (event) => {
-
     const asyncSubmit = async() => {
       const sendPostTripRequest = async() => {
         try{
@@ -58,6 +54,7 @@ const CreateTrip = () => {
         value={trip.destination}
         onChange={handleChange}
       />
+
       <br />
       <input
         type="text"
@@ -75,6 +72,7 @@ const CreateTrip = () => {
         value={trip.duration}
         onChange={handleChange}
       />
+
       <br />
       <input
         type="text"
@@ -83,6 +81,7 @@ const CreateTrip = () => {
         value={trip.activities}
         onChange={handleChange}
       />
+
       <br />
       <input
         type="text"
@@ -91,6 +90,7 @@ const CreateTrip = () => {
         value={trip.budget}
         onChange={handleChange}
       />
+
       <br />
       <textarea
         type="text"
@@ -99,8 +99,9 @@ const CreateTrip = () => {
         value={trip.additional_information}
         onChange={handleChange}
       />
+
       <br />
-      <input class="submit-btn" type="submit" />
+      <input className="submit-btn" type="submit" />
     </form>
   );
 };

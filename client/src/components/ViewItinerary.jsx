@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import ItineraryMap from "./ItineraryMap"
 import { getMapCenter } from '../utility/mapUtil.js';
@@ -11,10 +11,7 @@ import {
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
-    Text
-  } from '@chakra-ui/react'
-
-  import {
+    Text,
     Button,
     Editable,
     EditableInput,
